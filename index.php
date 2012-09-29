@@ -22,7 +22,7 @@ $app->match("/", function(Request $req) use ($app) {
     }
 
     $response = new Response();
-    $response->setTtl(600); // cache for 5 mins
+    $response->setTtl(300); // cache for 5 mins
     $response->headers->set('Surrogate-Control', 'content="ESI/1.0"');
     return $app->render('index.twig', [ 'guestbook' => $form->createView() ], $response);
 })->method("GET|POST")->bind('homepage');
