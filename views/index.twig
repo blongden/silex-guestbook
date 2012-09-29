@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" />
+    </head>
+    <body>
+        <!-- Twitter bootstrap markup -->
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <!-- Our demo form -->
+                    <form action="{{ url('homepage') }}" method="post">
+                        {{ form_widget(guestbook) }}
+                        <input class="btn btn-primary" type="submit" value="Comment" />
+                    </form>
+                </div>
+            </div>
+            <esi:include src="{{ path('messages') }}" />
+        </div>
+        <script type="javascript" src="assets/bootstrap/js/bootstrap.min.js"></script>
+    </body>
+</html>

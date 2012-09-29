@@ -1,0 +1,10 @@
+{% if guestbook|length > 0 %}
+    <div class="well">
+    {% for message in guestbook %}
+        <div class="row-fluid">
+            <div class="span12">At {{ message.time|date('G:i \\o\\n l jS F Y (T)') }} <strong>{{ message.name }}</strong> said:</div>
+            <div class="span11 offset1">{{ message.message }}</div>
+        </div>
+    {% endfor %}
+    </div>
+{% endif %}
