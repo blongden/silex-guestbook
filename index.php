@@ -22,17 +22,17 @@ $app->match("/", function(Request $req) use ($app) {
     }
 
     $response = new Response();
-    $response->setTtl(300); // cache for 5 mins
     $response->headers->set('Surrogate-Control', 'content="ESI/1.0"');
-    return $app->render('index.twig', [ 'guestbook' => $form->createView() ], $response);
+    return $app->render('index.twig', [
+        'guestbook' => $form->createView()
+    ], $response->setTtl(300));
 })->method("GET|POST")->bind('homepage');
 
 $app->get("/messages", function() use ($app) {
     $response = new Response();
-    $response->setTtl(10); // cache for 10 seconds
     return $app->render('messages.twig', [
         'guestbook' => $app['guestbook']->get()
-    ], $response);
+    ], $response->setTtl(10));
 })->bind('messages');
 
 $app['http_cache']->run();
