@@ -15,7 +15,7 @@ $app->match("/", function(Request $req) use ($app) {
             $app['guestbook']->add(
                 $data['name'],
                 $data['message'],
-                $_SERVER['REQUEST_TIME']
+                $app['request_time']
             )->save();
             return $app->redirect($app->url('homepage'), 303); // 303: See Other
         }
@@ -23,6 +23,7 @@ $app->match("/", function(Request $req) use ($app) {
 
     $response = new Response();
     $response->headers->set('Surrogate-Control', 'content="ESI/1.0"');
+    
     return $app->render('index.twig', [
         'guestbook' => $form->createView()
     ], $response->setTtl(300));
@@ -30,6 +31,7 @@ $app->match("/", function(Request $req) use ($app) {
 
 $app->get("/messages", function() use ($app) {
     $response = new Response();
+    
     return $app->render('messages.twig', [
         'guestbook' => $app['guestbook']->get()
     ], $response->setTtl(10));

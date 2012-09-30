@@ -1,0 +1,6 @@
+
+{% if app.debug %}
+<div class="row-fluid">
+    <div span="span1 offset11">Generated at {{ app.request_time|date('c') }}</div>
+</div>
+{% endif %}

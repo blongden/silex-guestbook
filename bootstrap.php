@@ -26,4 +26,6 @@ $app['guestbook'] = $app->share(function() {
     return new Guestbook('guestbook.json');
 });
 
+$app['request_time'] = $_SERVER['REQUEST_TIME'];
+
 return $app;
