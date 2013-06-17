@@ -1,21 +1,26 @@
 <?php
-use Blongden\Guestbook;
 require_once 'vendor/autoload.php';
+use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\FormServiceProvider;
+use Silex\Provider\ValidatorServiceProvider;
+use Silex\Provider\UrlGeneratorServiceProvider;
+use Silex\Provider\HttpCacheServiceProvider;
+use Blongden\Guestbook;
 
-class Application extends Silex\Application
-{
+class Application extends Silex\Application {
     use Silex\Application\TwigTrait;
     use Silex\Application\UrlGeneratorTrait;
 }
 
 $app = new Application();
-$app['debug'] = true;
-$app->register(new Silex\Provider\TwigServiceProvider(), [ 'twig.path' => __DIR__.'/views' ]);
-$app->register(new Silex\Provider\TranslationServiceProvider(), [ 'locale_fallback' => 'en' ]);
-$app->register(new Silex\Provider\FormServiceProvider());
-$app->register(new Silex\Provider\ValidatorServiceProvider());
-$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
-$app->register(new Silex\Provider\HttpCacheServiceProvider(), [
+
+$app->register(new TwigServiceProvider(), [ 'twig.path' => __DIR__.'/views' ]);
+$app->register(new TranslationServiceProvider(), [ 'locale_fallback' => 'en' ]);
+$app->register(new FormServiceProvider());
+$app->register(new ValidatorServiceProvider());
+$app->register(new UrlGeneratorServiceProvider());
+$app->register(new HttpCacheServiceProvider(), [
     'http_cache.cache_dir' => __DIR__.'/cache',
     'http_cache.options' => [
         'debug' => true
